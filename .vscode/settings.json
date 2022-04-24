@@ -1,0 +1,4 @@
+{
+    "dart.warnWhenEditingFilesOutsideWorkspace": true,
+    "debug.javascript.codelens.npmScripts": "never"
+}
