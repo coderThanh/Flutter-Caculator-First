@@ -13,7 +13,7 @@ class ResultCaulator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: AppStyles.paddHori),
       child: isError
           ? Text(
               'Error input',

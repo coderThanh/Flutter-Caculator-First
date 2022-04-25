@@ -18,7 +18,6 @@ class ExpressBox extends StatelessWidget {
     inputExpress.forEach((element) {
       String value = element.value;
       String type = element.type;
-      String decimalValue = '';
 
       switch (type) {
         case AppConst.keyOperator:
@@ -50,7 +49,7 @@ class ExpressBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: AppStyles.paddHori),
       alignment: Alignment.bottomRight,
       constraints: const BoxConstraints(
         maxHeight: 200,

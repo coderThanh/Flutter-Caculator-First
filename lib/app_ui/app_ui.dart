@@ -40,6 +40,7 @@ class AppColors {
 
 class AppStyles {
   bool isThemeDark;
+  static const double paddHori = 18;
 
   AppStyles({required this.isThemeDark});
 
