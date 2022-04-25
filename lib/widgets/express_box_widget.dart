@@ -31,25 +31,16 @@ class ExpressBox extends StatelessWidget {
           }
           break;
         default: //Keynum
-          if (value.isNotEmpty) {
-            int indexDecimalSer = value.indexOf(AppConst.decimalSerpa);
-            String intValue = value;
+          if (value.isEmpty) {
+            return;
+          }
 
-            if (indexDecimalSer != -1) {
-              intValue = value.substring(0, indexDecimalSer);
-              decimalValue = value.substring(indexDecimalSer + 1);
-            }
-
-            var toNumber = double.tryParse(intValue) ?? 0;
-
-            result += AppNumPattern(number: toNumber).formatThousand;
-
-            if (indexDecimalSer != -1) {
-              result += ',';
-            }
-            if (decimalValue.isNotEmpty) {
-              result += decimalValue;
-            }
+          var toNumber = double.tryParse(value) ?? 0;
+          int indexDecimalSer = value.indexOf(AppConst.decimalSerpa);
+          if (indexDecimalSer != -1) {
+            result += AppNumPattern(number: toNumber).formatDecimalZero;
+          } else {
+            result += AppNumPattern(number: toNumber).formatDecimal;
           }
       }
     });

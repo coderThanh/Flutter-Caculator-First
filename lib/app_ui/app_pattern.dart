@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 class AppNumPattern {
   late double number;
   final NumberFormat _decimalPattern = NumberFormat('#,##0.#########', 'vi');
+  final NumberFormat _decimalZeroPattern =
+      NumberFormat('#,##0.0########', 'vi');
   final NumberFormat _thousandPattern = NumberFormat('#,###', 'vi');
-  final NumberFormat _compactCurrPattern =
-      NumberFormat.compactCurrency(locale: 'vi');
 
   AppNumPattern({required this.number});
 
@@ -14,8 +14,8 @@ class AppNumPattern {
     return result;
   }
 
-  String get formatCompactCurr {
-    String result = _compactCurrPattern.format(number);
+  String get formatDecimalZero {
+    String result = _decimalZeroPattern.format(number);
     return result;
   }
 

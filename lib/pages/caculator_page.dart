@@ -22,6 +22,7 @@ class CaculatePage extends StatefulWidget {
 class _CaculatePageState extends State<CaculatePage> {
   List<KeyPress> _express = [];
   double _result = 0;
+  bool _resultError = false;
 
   // Create express caculator
   Parser expressCaculator = Parser();
@@ -32,6 +33,15 @@ class _CaculatePageState extends State<CaculatePage> {
         case AppConst.keyOperator:
           if (_express.isEmpty) {
             return;
+          }
+
+          if (_result == double.infinity) {
+            _express = [];
+            _result = 0;
+          } else if (_result != 0) {
+            _express = [KeyPress(type: AppConst.keyNum, value: '$_result')];
+            _express.add(keyPress);
+            _result = 0;
           } else if (_express[_express.length - 1].type ==
               AppConst.keyOperator) {
             _express[_express.length - 1] = keyPress;
@@ -40,33 +50,15 @@ class _CaculatePageState extends State<CaculatePage> {
           }
           break;
         case AppConst.keyAction:
-          if (keyPress.value == AppConst.equal) {
-            // Check last  just decimal sera . or ,
-            if (_express.isNotEmpty &&
-                _express[_express.length - 1].value == AppConst.decimalSerpa) {
-              _express[_express.length - 1].value += '0';
-            }
-            // Check last is operator
-            if (_express[_express.length - 1].type == AppConst.keyOperator) {
-              _express.removeLast();
-            }
+          if (_express.isEmpty) {
+            return;
+          }
 
-            try {
-              String parseStingExpress = '';
-              _express.forEach((KeyPress element) {
-                parseStingExpress += element.value;
-              });
-              print(parseStingExpress);
-
-              Expression exp = expressCaculator.parse(parseStingExpress);
-              _result = exp.evaluate(EvaluationType.REAL, ContextModel());
-            } catch (e) {
-              _result = 0;
-            }
-          } else if (keyPress.value == AppConst.ac) {
+          if (keyPress.value == AppConst.ac) {
+            // Delete all
             _express = [];
             _result = 0;
-          } else if (keyPress.value == AppConst.delete && _express.isNotEmpty) {
+          } else if (keyPress.value == AppConst.delete) {
             // Remove Number
             KeyPress lastExpress = _express[_express.length - 1];
 
@@ -79,6 +71,40 @@ class _CaculatePageState extends State<CaculatePage> {
                 lastExpress.value.length - 1,
               );
             }
+          } else if (keyPress.value == AppConst.equal) {
+            // Check last is operator
+            if (_express[_express.length - 1].type == AppConst.keyOperator) {
+              _express.removeLast();
+            }
+
+            try {
+              String parseStingExpress = '';
+              _express.forEach((KeyPress element) {
+                String value = element.value;
+                String type = element.type;
+                String lastValue = value.substring(element.value.length - 1);
+
+                // Check last  just decimal sera
+                if (type == AppConst.keyNum && value == AppConst.decimalSerpa) {
+                  element.value = '0';
+                }
+                if (type == AppConst.keyNum &&
+                    lastValue == AppConst.decimalSerpa) {
+                  element.value += '0';
+                }
+
+                parseStingExpress += element.value;
+              });
+
+              Expression exp = expressCaculator.parse(parseStingExpress);
+              _result = exp.evaluate(EvaluationType.REAL, ContextModel());
+            } catch (e) {
+              _resultError = true;
+              return;
+            }
+
+            // If no erro will run here
+            _resultError = false;
           }
 
           break;
@@ -95,6 +121,7 @@ class _CaculatePageState extends State<CaculatePage> {
 
             if (_express[_express.length - 1].value.length < 12) {
               _express[_express.length - 1].value += keyPress.value;
+              return;
             }
           } else {
             _express.add(keyPress);
@@ -120,7 +147,7 @@ class _CaculatePageState extends State<CaculatePage> {
               const SizedBox(height: 7),
               // Result show
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: Container(
                   decoration: const BoxDecoration(
                     border: Border(
@@ -133,7 +160,10 @@ class _CaculatePageState extends State<CaculatePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              ResultCaulator(result: _result),
+              ResultCaulator(
+                result: _result,
+                isError: _resultError,
+              ),
               const SizedBox(height: 15),
               // Keyboard show
               BoardNum(onTab: setExpress),
