@@ -11,6 +11,8 @@ class ButtonInkWell extends StatelessWidget {
   AlignmentGeometry? alignment;
   double? height;
   double? width;
+  bool isThemeDark;
+  List<BoxShadow>? boxShadow;
 
   ButtonInkWell({
     Key? key,
@@ -22,6 +24,8 @@ class ButtonInkWell extends StatelessWidget {
     this.alignment,
     this.height,
     this.width,
+    this.isThemeDark = true,
+    this.boxShadow,
   }) : super(key: key);
 
   @override
@@ -32,8 +36,17 @@ class ButtonInkWell extends StatelessWidget {
       width: width ?? width,
       height: height ?? height,
       decoration: BoxDecoration(
-        color: color ?? AppColors(isThemeDark: true).bg,
+        color: color ?? AppColors(isThemeDark: isThemeDark).bg,
         borderRadius: borderRadius ?? BorderRadius.circular(10),
+        boxShadow: boxShadow ??
+            const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.05),
+                offset: Offset(3, 5),
+                blurRadius: 20,
+                spreadRadius: 3,
+              ),
+            ],
       ),
       child: Material(
         color: Colors.transparent,

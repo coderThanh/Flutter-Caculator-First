@@ -1,13 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_caculator/app_ui/app_class.dart';
 import 'package:flutter_caculator/app_ui/app_const.dart';
 import 'package:flutter_caculator/app_ui/app_ui.dart';
 import 'package:flutter_caculator/widgets/board_num_widget.dart';
 import 'package:flutter_caculator/widgets/border_space_widget.dart';
+import 'package:flutter_caculator/widgets/button_widget.dart';
 import 'package:flutter_caculator/widgets/express_box_widget.dart';
 import 'package:flutter_caculator/widgets/result_widget.dart';
+import 'package:flutter_caculator/widgets/switch_icon_widget.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -24,6 +29,7 @@ class _CaculatePageState extends State<CaculatePage> {
   List<KeyPress> _express = [];
   double _result = 0;
   bool _resultError = false;
+  bool _isThemeDark = true;
 
   // Create express caculator
   Parser expressCaculator = Parser();
@@ -65,6 +71,7 @@ class _CaculatePageState extends State<CaculatePage> {
 
         if (_express[_express.length - 1].value.length < 12) {
           _express[_express.length - 1].value += keyPress.value;
+          _result = 0;
           return;
         }
       } else {
@@ -151,26 +158,87 @@ class _CaculatePageState extends State<CaculatePage> {
 
   @override
   Widget build(BuildContext context) {
+    const String assetName = 'assets/images/ic_back.svg';
+
     return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // Ios
+          statusBarBrightness:
+              _isThemeDark ? Brightness.dark : Brightness.light,
+          // Android
+          statusBarIconBrightness:
+              _isThemeDark ? Brightness.dark : Brightness.light,
+        ),
+        toolbarHeight: 0,
+        backgroundColor: AppColors(isThemeDark: _isThemeDark).bg,
+        shadowColor: Colors.transparent,
+      ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: AppColors(isThemeDark: true).bgLinear,
+          gradient: AppColors(isThemeDark: _isThemeDark).bgLinear,
         ),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              // Header
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: AppStyles.paddHori),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ButtonInkWell(
+                      color: Colors.transparent,
+                      height: 32,
+                      width: 32,
+                      borderRadius: const BorderRadius.all(Radius.circular(50)),
+                      child: SvgPicture.asset(
+                        assetName,
+                        color: AppColors(isThemeDark: _isThemeDark).text,
+                        semanticsLabel: 'A red up arrow',
+                        height: 26,
+                      ),
+                      onTap: () => print('icon tad'),
+                    ),
+                    SwitchIcon(
+                      isActive: _isThemeDark,
+                      onChanged: () => setState(() {
+                        _isThemeDark = !_isThemeDark;
+                      }),
+                      textOff: 'Light',
+                      textOn: 'Drak',
+                      width: 64,
+                      bgColorOn: Color.fromARGB(255, 93, 93, 93),
+                      bgColorOff: Color.fromARGB(255, 207, 207, 207),
+                    ),
+                  ],
+                ),
+              ),
               // Express Widget
-              ExpressBox(express: _express),
+              Expanded(
+                child: ExpressBox(
+                  express: _express,
+                  isThemeDark: _isThemeDark,
+                ),
+              ),
               const SizedBox(height: 7),
-              const BorderSpace(),
+              BorderSpace(isThemeDark: _isThemeDark),
               const SizedBox(height: 10),
               // Result Widget
-              ResultCaulator(result: _result, isError: _resultError),
+              ResultCaulator(
+                result: _result,
+                isError: _resultError,
+                isThemeDark: _isThemeDark,
+              ),
               const SizedBox(height: 15),
               // Keyboard Widget
-              BoardNum(onTab: setExpress),
+              BoardNum(
+                onTab: setExpress,
+                isThemeDark: _isThemeDark,
+              ),
             ],
           ),
         ),

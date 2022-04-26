@@ -9,7 +9,9 @@ import 'iconinner_btn_widget.dart';
 
 class BoardNum extends StatelessWidget {
   late Function onTab;
-  BoardNum({Key? key, required this.onTab}) : super(key: key);
+  late bool isThemeDark = true;
+  BoardNum({Key? key, required this.onTab, this.isThemeDark = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class BoardNum extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyAction,
@@ -33,22 +36,27 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('AC',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyAction,
                             value: AppConst.delete,
                           ),
                         ),
-                        child: IconInnerBtn(iconData: Icons.backspace),
+                        child: IconInnerBtn(
+                          iconData: Icons.backspace,
+                          color: AppColors(isThemeDark: isThemeDark).text,
+                        ),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyOperator,
@@ -56,7 +64,7 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('\u00F7',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                   ],
@@ -65,6 +73,7 @@ class BoardNum extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -72,11 +81,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('7',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -84,11 +94,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('8',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -96,7 +107,7 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('9',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                   ],
@@ -105,6 +116,7 @@ class BoardNum extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -112,11 +124,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('4',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -124,11 +137,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('5',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -136,7 +150,7 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('6',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                   ],
@@ -145,6 +159,7 @@ class BoardNum extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -152,11 +167,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('1',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -164,11 +180,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('2',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -176,7 +193,7 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('3',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                   ],
@@ -186,6 +203,7 @@ class BoardNum extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -193,11 +211,12 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text('0',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                     Expanded(
                       child: ButtonInkWell(
+                        color: AppColors(isThemeDark: isThemeDark).bg,
                         onTap: () => onTab(
                           KeyPress(
                             type: AppConst.keyNum,
@@ -205,7 +224,7 @@ class BoardNum extends StatelessWidget {
                           ),
                         ),
                         child: Text(',',
-                            style: AppStyles(isThemeDark: true).textBtn),
+                            style: AppStyles(isThemeDark: isThemeDark).textBtn),
                       ),
                     ),
                   ],
@@ -219,35 +238,47 @@ class BoardNum extends StatelessWidget {
             child: Column(
               children: [
                 ButtonInkWell(
+                  color: AppColors(isThemeDark: isThemeDark).bg,
                   onTap: () => onTab(
                     KeyPress(
                       type: AppConst.keyOperator,
                       value: AppConst.multi,
                     ),
                   ),
-                  child: IconInnerBtn(iconData: Icons.clear),
+                  child: IconInnerBtn(
+                    iconData: Icons.clear,
+                    color: AppColors(isThemeDark: isThemeDark).text,
+                  ),
                 ),
                 ButtonInkWell(
+                  color: AppColors(isThemeDark: isThemeDark).bg,
                   onTap: () => onTab(
                     KeyPress(
                       type: AppConst.keyOperator,
                       value: AppConst.plus,
                     ),
                   ),
-                  child: IconInnerBtn(iconData: Icons.add),
+                  child: IconInnerBtn(
+                    iconData: Icons.add,
+                    color: AppColors(isThemeDark: isThemeDark).text,
+                  ),
                 ),
                 ButtonInkWell(
+                  color: AppColors(isThemeDark: isThemeDark).bg,
                   onTap: () => onTab(
                     KeyPress(
                       type: AppConst.keyOperator,
                       value: AppConst.minus,
                     ),
                   ),
-                  child: IconInnerBtn(iconData: Icons.remove),
+                  child: IconInnerBtn(
+                    iconData: Icons.remove,
+                    color: AppColors(isThemeDark: isThemeDark).text,
+                  ),
                 ),
                 Expanded(
                   child: ButtonInkWell(
-                    color: AppColors(isThemeDark: true).primary,
+                    color: AppColors(isThemeDark: isThemeDark).primary,
                     onTap: () => onTab(
                       KeyPress(
                         type: AppConst.keyAction,

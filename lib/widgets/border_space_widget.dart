@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_caculator/app_ui/app_ui.dart';
 
 class BorderSpace extends StatelessWidget {
-  const BorderSpace({Key? key}) : super(key: key);
+  bool isThemeDark;
+
+  BorderSpace({
+    Key? key,
+    this.isThemeDark = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppStyles.paddHori),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               width: 0.5,
-              color: Color.fromRGBO(255, 255, 255, 0.3),
+              color: isThemeDark
+                  ? const Color.fromRGBO(255, 255, 255, 0.3)
+                  : const Color.fromRGBO(0, 0, 0, 0.15),
             ),
           ),
         ),

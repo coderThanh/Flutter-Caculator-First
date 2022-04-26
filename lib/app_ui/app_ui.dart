@@ -6,7 +6,7 @@ class AppColors {
   AppColors({required this.isThemeDark});
 
   static const Color _primary = Color(0xff56CB95);
-  static const Color _textDark = Color(0xFF707070);
+  static const Color _textDark = Color.fromARGB(255, 82, 82, 82);
   static const Color _textLight = Color(0xffffffff);
 
   static const Color _bgDark = Color(0xFF424242);
@@ -16,17 +16,23 @@ class AppColors {
 
   static const LinearGradient _bgLinearDark = LinearGradient(
     begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    end: Alignment.bottomCenter,
     colors: [
-      Color(0xff424242),
+      Color(0xFF424242),
+      Color(0xFF424242),
+      Color(0xFF585858),
       Color(0xFF585858),
     ],
   );
   static const LinearGradient _bgLinearLight = LinearGradient(
     begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    end: Alignment.bottomCenter,
     colors: [
       Color(0xffFBFBFB),
+      Color(0xffFBFBFB),
+      Color.fromRGBO(229, 252, 233, 0.5),
+      Color.fromRGBO(229, 252, 233, 0.8),
+      Color.fromRGBO(229, 252, 233, 0.9),
       Color.fromRGBO(229, 252, 233, 1),
     ],
   );

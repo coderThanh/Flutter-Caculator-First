@@ -6,9 +6,15 @@ import '../app_ui/app_ui.dart';
 
 class ResultCaulator extends StatelessWidget {
   double result = 0;
-  bool isError = false;
-  ResultCaulator({Key? key, required this.result, this.isError = false})
-      : super(key: key);
+  bool isError;
+  bool isThemeDark;
+
+  ResultCaulator({
+    Key? key,
+    required this.result,
+    this.isError = false,
+    this.isThemeDark = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class ResultCaulator extends StatelessWidget {
           ? Text(
               'Error input',
               style: TextStyle(
-                color: AppColors(isThemeDark: true).text,
+                color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 40,
                 fontWeight: FontWeight.w400,
               ),
@@ -28,7 +34,7 @@ class ResultCaulator extends StatelessWidget {
               maxLines: 1,
               minFontSize: 40,
               style: TextStyle(
-                color: AppColors(isThemeDark: true).text,
+                color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 80,
                 fontWeight: FontWeight.w400,
               ),
@@ -37,7 +43,7 @@ class ResultCaulator extends StatelessWidget {
                 child: Text(
                   AppNumPattern(number: result).formatDecimal,
                   style: TextStyle(
-                    color: AppColors(isThemeDark: true).text,
+                    color: AppColors(isThemeDark: isThemeDark).text,
                     fontSize: 40,
                     fontWeight: FontWeight.w400,
                   ),

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../app_ui/app_class.dart';
@@ -8,9 +9,12 @@ import '../app_ui/app_ui.dart';
 
 class ExpressBox extends StatelessWidget {
   List<KeyPress> express = [];
+  bool isThemeDark;
+
   ExpressBox({
     Key? key,
     required this.express,
+    this.isThemeDark = true,
   }) : super(key: key);
 
   String getExpressString(List<KeyPress> inputExpress) {
@@ -59,17 +63,19 @@ class ExpressBox extends StatelessWidget {
         textAlign: TextAlign.right,
         minFontSize: 25,
         style: TextStyle(
-          color: AppColors(isThemeDark: true).text,
+          color: AppColors(isThemeDark: isThemeDark).text,
           fontSize: 38,
           fontWeight: FontWeight.w400,
           height: 1.3,
         ),
         overflowReplacement: SingleChildScrollView(
+          reverse: true,
+          clipBehavior: Clip.antiAlias,
           child: Text.rich(
             TextSpan(
               text: getExpressString(express),
               style: TextStyle(
-                color: AppColors(isThemeDark: true).text,
+                color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 25,
                 fontWeight: FontWeight.w400,
                 height: 1.4,
