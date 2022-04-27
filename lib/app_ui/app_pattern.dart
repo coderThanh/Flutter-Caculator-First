@@ -5,6 +5,7 @@ class AppNumPattern {
   final NumberFormat _decimalPattern = NumberFormat('#,##0.#########', 'vi');
   final NumberFormat _decimalZeroPattern =
       NumberFormat('#,##0.0########', 'vi');
+  final NumberFormat _toStringDecimalPattern = NumberFormat('#0.#########');
   final NumberFormat _thousandPattern = NumberFormat('#,###', 'vi');
 
   AppNumPattern({required this.number});
@@ -16,6 +17,11 @@ class AppNumPattern {
 
   String get formatDecimalZero {
     String result = _decimalZeroPattern.format(number);
+    return result;
+  }
+
+  String get toStringDecimalPattern {
+    String result = _toStringDecimalPattern.format(number);
     return result;
   }
 

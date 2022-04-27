@@ -1,11 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_caculator/app_ui/app_class.dart';
 import 'package:flutter_caculator/app_ui/app_const.dart';
 import 'package:flutter_caculator/app_ui/app_ui.dart';
+import 'package:flutter_caculator/pages/restore_page.dart';
 import 'package:flutter_caculator/widgets/board_num_widget.dart';
 import 'package:flutter_caculator/widgets/border_space_widget.dart';
 import 'package:flutter_caculator/widgets/button_widget.dart';
@@ -13,7 +13,6 @@ import 'package:flutter_caculator/widgets/express_box_widget.dart';
 import 'package:flutter_caculator/widgets/result_widget.dart';
 import 'package:flutter_caculator/widgets/switch_icon_widget.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import '../app_ui/app_pattern.dart';
@@ -45,8 +44,14 @@ class _CaculatePageState extends State<CaculatePage> {
         _express = [];
         _result = 0;
       } else if (_result != 0) {
-        _express = [KeyPress(type: AppConst.keyNum, value: '$_result')];
-        _express.add(keyPress);
+        // Continute with new result math
+        _express = [
+          KeyPress(
+            type: AppConst.keyNum,
+            value: AppNumPattern(number: _result).toStringDecimalPattern,
+          ),
+          keyPress,
+        ];
         _result = 0;
       } else if (_express[_express.length - 1].type == AppConst.keyOperator) {
         _express[_express.length - 1] = keyPress;
@@ -201,7 +206,34 @@ class _CaculatePageState extends State<CaculatePage> {
                         semanticsLabel: 'A red up arrow',
                         height: 26,
                       ),
-                      onTap: () => print('icon tad'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          // Packages Animations
+                          PageRouteBuilder(
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            reverseTransitionDuration:
+                                const Duration(milliseconds: 400),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return SharedAxisTransition(
+                                fillColor: Colors.transparent,
+                                animation: animation,
+                                secondaryAnimation: secondaryAnimation,
+                                transitionType:
+                                    SharedAxisTransitionType.vertical,
+                                child: child,
+                              );
+                            },
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    RestorePage(
+                              isThemeDark: _isThemeDark,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     SwitchIcon(
                       isActive: _isThemeDark,
@@ -211,8 +243,8 @@ class _CaculatePageState extends State<CaculatePage> {
                       textOff: 'Light',
                       textOn: 'Drak',
                       width: 64,
-                      bgColorOn: Color.fromARGB(255, 93, 93, 93),
-                      bgColorOff: Color.fromARGB(255, 207, 207, 207),
+                      bgColorOn: const Color.fromARGB(255, 93, 93, 93),
+                      bgColorOff: const Color.fromARGB(255, 207, 207, 207),
                     ),
                   ],
                 ),

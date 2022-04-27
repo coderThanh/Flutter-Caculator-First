@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.17.0
   math_expressions: ^2.3.0
   flutter_svg: ^1.0.3
+  animations: ^2.0.2
 
 dev_dependencies:
   flutter_test:
