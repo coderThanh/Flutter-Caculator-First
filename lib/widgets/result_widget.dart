@@ -30,7 +30,7 @@ class ResultCaulator extends StatelessWidget {
               ),
             )
           : AutoSizeText(
-              AppNumPattern(number: result).formatDecimal,
+              AppNumPattern().formatDecimal(result),
               maxLines: 1,
               minFontSize: 40,
               style: TextStyle(
@@ -41,7 +41,7 @@ class ResultCaulator extends StatelessWidget {
               overflowReplacement: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Text(
-                  AppNumPattern(number: result).formatDecimal,
+                  AppNumPattern().formatDecimal(result),
                   style: TextStyle(
                     color: AppColors(isThemeDark: isThemeDark).text,
                     fontSize: 40,

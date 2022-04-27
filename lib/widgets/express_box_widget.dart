@@ -17,39 +17,6 @@ class ExpressBox extends StatelessWidget {
     this.isThemeDark = true,
   }) : super(key: key);
 
-  String getExpressString(List<KeyPress> inputExpress) {
-    String result = '';
-    inputExpress.forEach((element) {
-      String value = element.value;
-      String type = element.type;
-
-      switch (type) {
-        case AppConst.keyOperator:
-          if (value == AppConst.multi) {
-            result += ' \u00d7 ';
-          } else if (value == AppConst.devider) {
-            result += ' \u00f7 ';
-          } else {
-            result += ' ' + value + ' ';
-          }
-          break;
-        default: //Keynum
-          if (value.isEmpty) {
-            return;
-          }
-
-          var toNumber = double.tryParse(value) ?? 0;
-          int indexDecimalSer = value.indexOf(AppConst.decimalSerpa);
-          if (indexDecimalSer != -1) {
-            result += AppNumPattern(number: toNumber).formatDecimalZero;
-          } else {
-            result += AppNumPattern(number: toNumber).formatDecimal;
-          }
-      }
-    });
-    return result.isNotEmpty ? result : '0';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +26,7 @@ class ExpressBox extends StatelessWidget {
         maxHeight: 200,
       ),
       child: AutoSizeText(
-        getExpressString(express),
+        AppFunc().getExpressString(express),
         textAlign: TextAlign.right,
         minFontSize: 25,
         style: TextStyle(
@@ -73,7 +40,7 @@ class ExpressBox extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: Text.rich(
             TextSpan(
-              text: getExpressString(express),
+              text: AppFunc().getExpressString(express),
               style: TextStyle(
                 color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 25,

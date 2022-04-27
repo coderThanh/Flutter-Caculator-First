@@ -26,9 +26,11 @@ class CaculatePage extends StatefulWidget {
 
 class _CaculatePageState extends State<CaculatePage> {
   List<KeyPress> _express = [];
+  List<ExpressHistory> _expressHistory = [];
   double _result = 0;
   bool _resultError = false;
   bool _isThemeDark = true;
+  bool _wasEqualPressBefore = false;
 
   // Create express caculator
   Parser expressCaculator = Parser();
@@ -48,7 +50,7 @@ class _CaculatePageState extends State<CaculatePage> {
         _express = [
           KeyPress(
             type: AppConst.keyNum,
-            value: AppNumPattern(number: _result).toStringDecimalPattern,
+            value: AppNumPattern().toStringDecimalPattern(_result),
           ),
           keyPress,
         ];
@@ -87,10 +89,11 @@ class _CaculatePageState extends State<CaculatePage> {
 
   // Logic Key action
   void logicKeyAction(KeyPress keyPress) {
-    if (_express.isEmpty) {
+    // Middleware check something before run Logi
+    if (_express.isEmpty || _wasEqualPressBefore) {
       return;
     }
-
+    // Run logic
     setState(() {
       if (keyPress.value == AppConst.ac) {
         // Delete all
@@ -110,6 +113,8 @@ class _CaculatePageState extends State<CaculatePage> {
           );
         }
       } else if (keyPress.value == AppConst.equal) {
+        _wasEqualPressBefore = true;
+
         // Check last is operator
         if (_express[_express.length - 1].type == AppConst.keyOperator) {
           _express.removeLast();
@@ -140,13 +145,28 @@ class _CaculatePageState extends State<CaculatePage> {
           return;
         }
 
-        // If no erro will run here
+        // If no error will run here & add history
         _resultError = false;
+
+        if (!_resultError) {
+          _expressHistory.add(ExpressHistory(
+            express: [..._express],
+            result: _result,
+            timeInit: DateTime.now(),
+          ));
+        }
       }
     });
   }
 
+  // Func Key press
   void setExpress(KeyPress keyPress) {
+    if (_wasEqualPressBefore && keyPress.value != AppConst.equal) {
+      setState(() {
+        _wasEqualPressBefore = false;
+      });
+    }
+
     switch (keyPress.type) {
       case AppConst.keyOperator:
         logicKeyOprerator(keyPress);
@@ -203,7 +223,7 @@ class _CaculatePageState extends State<CaculatePage> {
                       child: SvgPicture.asset(
                         assetName,
                         color: AppColors(isThemeDark: _isThemeDark).text,
-                        semanticsLabel: 'A red up arrow',
+                        semanticsLabel: 'History',
                         height: 26,
                       ),
                       onTap: () {
@@ -230,6 +250,7 @@ class _CaculatePageState extends State<CaculatePage> {
                                 (context, animation, secondaryAnimation) =>
                                     RestorePage(
                               isThemeDark: _isThemeDark,
+                              expressHistory: _expressHistory,
                             ),
                           ),
                         );
