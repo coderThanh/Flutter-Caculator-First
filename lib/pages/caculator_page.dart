@@ -102,6 +102,7 @@ class _CaculatePageState extends State<CaculatePage> {
       } else if (keyPress.value == AppConst.delete) {
         // Remove Number
         KeyPress lastExpress = _express[_express.length - 1];
+        _result = 0;
 
         if (lastExpress.type == AppConst.keyOperator ||
             lastExpress.value.length == 1) {
@@ -226,15 +227,15 @@ class _CaculatePageState extends State<CaculatePage> {
                         semanticsLabel: 'History',
                         height: 26,
                       ),
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        ExpressHistory? _reExpress = await Navigator.push(
                           context,
                           // Packages Animations
                           PageRouteBuilder(
                             transitionDuration:
-                                const Duration(milliseconds: 400),
+                                const Duration(milliseconds: 500),
                             reverseTransitionDuration:
-                                const Duration(milliseconds: 400),
+                                const Duration(milliseconds: 500),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               return SharedAxisTransition(
@@ -254,6 +255,13 @@ class _CaculatePageState extends State<CaculatePage> {
                             ),
                           ),
                         );
+
+                        if (_reExpress != null) {
+                          setState(() {
+                            _express = _reExpress.express;
+                            _result = _reExpress.result;
+                          });
+                        }
                       },
                     ),
                     SwitchIcon(
