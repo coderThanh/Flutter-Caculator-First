@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SwitchIcon extends StatefulWidget {
   String textOff;
   String textOn;
@@ -63,7 +64,6 @@ class _SwitchIconState extends State<SwitchIcon> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _text = widget.isActive ? widget.textOn : widget.textOff;
@@ -73,7 +73,6 @@ class _SwitchIconState extends State<SwitchIcon> {
 
   @override
   void didUpdateWidget(covariant SwitchIcon oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     _text = widget.isActive ? widget.textOn : widget.textOff;
     _bg = widget.isActive ? widget.bgColorOn : widget.bgColorOff;

@@ -26,7 +26,7 @@ class CaculatePage extends StatefulWidget {
 
 class _CaculatePageState extends State<CaculatePage> {
   List<KeyPress> _express = [];
-  List<ExpressHistory> _expressHistory = [];
+  final List<ExpressHistory> _expressHistory = [];
   double _result = 0;
   bool _resultError = false;
   bool _isThemeDark = true;
@@ -123,6 +123,7 @@ class _CaculatePageState extends State<CaculatePage> {
 
         try {
           String parseStingExpress = '';
+          // ignore: avoid_function_literals_in_foreach_calls
           _express.forEach((KeyPress element) {
             String value = element.value;
             String type = element.type;

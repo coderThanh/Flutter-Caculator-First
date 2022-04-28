@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../app_ui/app_pattern.dart';
 import '../app_ui/app_ui.dart';
 
+// ignore: must_be_immutable
 class ResultCaulator extends StatelessWidget {
   double result = 0;
   bool isError;

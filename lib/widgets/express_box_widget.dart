@@ -1,12 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../app_ui/app_class.dart';
-import '../app_ui/app_const.dart';
-import '../app_ui/app_pattern.dart';
 import '../app_ui/app_ui.dart';
 
+// ignore: must_be_immutable
 class ExpressBox extends StatelessWidget {
   List<KeyPress> express = [];
   bool isThemeDark;

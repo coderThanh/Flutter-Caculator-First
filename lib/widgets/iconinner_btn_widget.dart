@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_ui/app_ui.dart';
 
+// ignore: must_be_immutable
 class IconInnerBtn extends StatelessWidget {
   IconData iconData;
   double? size;

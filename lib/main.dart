@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_caculator/pages/caculator_page.dart';
-import 'package:flutter_caculator/pages/restore_page.dart';
 
 void main() {
   runApp(const MyApp());

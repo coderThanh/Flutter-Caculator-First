@@ -7,6 +7,7 @@ import '../app_ui/app_const.dart';
 import 'button_widget.dart';
 import 'iconinner_btn_widget.dart';
 
+// ignore: must_be_immutable
 class BoardNum extends StatelessWidget {
   late Function onTab;
   late bool isThemeDark = true;

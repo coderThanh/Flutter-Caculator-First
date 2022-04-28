@@ -26,6 +26,7 @@ class ExpressHistory {
 class AppFunc {
   String getExpressString(List<KeyPress> inputExpress) {
     String result = '';
+    // ignore: avoid_function_literals_in_foreach_calls
     inputExpress.forEach((element) {
       String value = element.value;
       String type = element.type;

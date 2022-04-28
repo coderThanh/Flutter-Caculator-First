@@ -4,6 +4,7 @@ import '../app_ui/app_class.dart';
 import '../app_ui/app_pattern.dart';
 import '../app_ui/app_ui.dart';
 
+// ignore: must_be_immutable
 class BoxHistoryExpress extends StatelessWidget {
   late bool isThemeDark;
   late double result;
@@ -24,7 +25,7 @@ class BoxHistoryExpress extends StatelessWidget {
         color: AppColors(isThemeDark: isThemeDark).bgSec,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Color.fromRGBO(0, 0, 0, 0.03),
+          color: const Color.fromRGBO(0, 0, 0, 0.03),
           width: 1,
         ),
       ),
@@ -57,7 +58,7 @@ class BoxHistoryExpress extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: Container(
-          margin: EdgeInsets.only(top: 5),
+          margin: const EdgeInsets.only(top: 5),
           child: Opacity(
             opacity: 0.6,
             child: Text(
