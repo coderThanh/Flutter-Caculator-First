@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_caculator/app_ui/app_ui.dart';
+
+import '../models/app_style_model.dart';
 
 // ignore: must_be_immutable
 class BorderSpace extends StatelessWidget {

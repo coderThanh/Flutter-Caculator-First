@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_caculator/pages/caculator_page.dart';
 import 'package:flutter_caculator/route_navigator/routes_name.dart';

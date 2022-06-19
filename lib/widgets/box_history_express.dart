@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_ui/app_class.dart';
-import '../app_ui/app_pattern.dart';
-import '../app_ui/app_ui.dart';
+import '../models/app_color_model.dart';
+import '../models/app_func_model.dart';
+import '../models/app_pattern_model.dart';
+import '../models/keypress_model.dart';
 
 // ignore: must_be_immutable
 class BoxHistoryExpress extends StatelessWidget {

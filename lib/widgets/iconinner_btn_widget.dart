@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_ui/app_ui.dart';
+import '../models/app_color_model.dart';
 
 // ignore: must_be_immutable
 class IconInnerBtn extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_caculator/app_ui/app_class.dart';
 
-import '../app_ui/app_ui.dart';
-import '../app_ui/app_const.dart';
-
+import '../models/app_color_model.dart';
+import '../models/app_const_model.dart';
+import '../models/app_style_model.dart';
+import '../models/keypress_model.dart';
 import 'button_widget.dart';
 import 'iconinner_btn_widget.dart';
 

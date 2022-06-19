@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../app_ui/app_class.dart';
-import '../app_ui/app_ui.dart';
+import '../models/app_color_model.dart';
+import '../models/app_func_model.dart';
+import '../models/app_style_model.dart';
+import '../models/keypress_model.dart';
 
 // ignore: must_be_immutable
 class ExpressBox extends StatelessWidget {

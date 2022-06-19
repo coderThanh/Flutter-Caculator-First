@@ -1,28 +1,7 @@
-// Class for List express
-import 'app_const.dart';
-import 'app_pattern.dart';
+import 'app_const_model.dart';
+import 'app_pattern_model.dart';
+import 'keypress_model.dart';
 
-class KeyPress {
-  late String type;
-  late String value;
-
-  KeyPress({required this.type, required this.value});
-}
-
-// Class express history
-class ExpressHistory {
-  late List<KeyPress> express;
-  late double result;
-  late DateTime timeInit;
-
-  ExpressHistory({
-    required this.express,
-    required this.result,
-    required this.timeInit,
-  });
-}
-
-// Class app functions
 class AppFunc {
   String getExpressString(List<KeyPress> inputExpress) {
     String result = '';

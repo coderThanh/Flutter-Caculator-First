@@ -44,15 +44,3 @@ class AppColors {
   Color get bgSec => isThemeDark ? _bgSecDark : _bgSecLight;
   LinearGradient get bgLinear => isThemeDark ? _bgLinearDark : _bgLinearLight;
 }
-
-class AppStyles {
-  bool isThemeDark;
-  static const double paddHori = 18;
-
-  AppStyles({required this.isThemeDark});
-
-  TextStyle get textBtn => TextStyle(
-        fontSize: 33,
-        color: AppColors(isThemeDark: isThemeDark).text,
-      );
-}

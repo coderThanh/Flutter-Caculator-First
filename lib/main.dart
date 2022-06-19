@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_caculator/pages/caculator_page.dart';
-import 'package:flutter_caculator/route_navigator/route_generator.dart';
-import 'package:flutter_caculator/route_navigator/routes_name.dart';
+import 'bloc/caculator_bloc.dart';
+import 'bloc/theme_bloc.dart';
+import 'route_navigator/route_generator.dart';
+import 'route_navigator/routes_name.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +16,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: RoutesName.home,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeBloc()..add(ThemeLoadDark())),
+        BlocProvider(
+            create: (context) => CaculatorBloc()..add(CaculatorEventLoadded())),
+      ],
+      child: const MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        initialRoute: RoutesName.home,
+      ),
     );
   }
 }

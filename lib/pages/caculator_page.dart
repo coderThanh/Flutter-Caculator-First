@@ -1,21 +1,19 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:flutter_caculator/app_ui/app_class.dart';
-import 'package:flutter_caculator/app_ui/app_const.dart';
-import 'package:flutter_caculator/app_ui/app_ui.dart';
-import 'package:flutter_caculator/pages/restore_page.dart';
-import 'package:flutter_caculator/widgets/board_num_widget.dart';
-import 'package:flutter_caculator/widgets/border_space_widget.dart';
-import 'package:flutter_caculator/widgets/button_widget.dart';
-import 'package:flutter_caculator/widgets/express_box_widget.dart';
-import 'package:flutter_caculator/widgets/result_widget.dart';
-import 'package:flutter_caculator/widgets/switch_icon_widget.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_caculator/bloc/theme_bloc.dart';
+import 'package:flutter_caculator/widgets/header_widget.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-import '../app_ui/app_pattern.dart';
+import '../models/app_color_model.dart';
+import '../models/app_const_model.dart';
+import '../models/app_pattern_model.dart';
+import '../models/express_history_model.dart';
+import '../models/keypress_model.dart';
+import '../widgets/board_num_widget.dart';
+import '../widgets/border_space_widget.dart';
+import '../widgets/express_box_widget.dart';
+import '../widgets/result_widget.dart';
 
 class CaculatePage extends StatefulWidget {
   const CaculatePage({Key? key}) : super(key: key);
@@ -29,7 +27,7 @@ class _CaculatePageState extends State<CaculatePage> {
   final List<ExpressHistory> _expressHistory = [];
   double _result = 0;
   bool _resultError = false;
-  bool _isThemeDark = true;
+  // bool _isThemeDark = true;
   bool _wasEqualPressBefore = false;
 
   // Create express caculator
@@ -187,124 +185,65 @@ class _CaculatePageState extends State<CaculatePage> {
   Widget build(BuildContext context) {
     const String assetName = 'assets/images/ic_back.svg';
 
-    return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          // Ios
-          statusBarBrightness:
-              _isThemeDark ? Brightness.dark : Brightness.light,
-          // Android
-          statusBarIconBrightness:
-              _isThemeDark ? Brightness.dark : Brightness.light,
-        ),
-        toolbarHeight: 0,
-        backgroundColor: AppColors(isThemeDark: _isThemeDark).bg,
-        shadowColor: Colors.transparent,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors(isThemeDark: _isThemeDark).bgLinear,
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // Header
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: AppStyles.paddHori),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ButtonInkWell(
-                      color: Colors.transparent,
-                      height: 32,
-                      width: 32,
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: SvgPicture.asset(
-                        assetName,
-                        color: AppColors(isThemeDark: _isThemeDark).text,
-                        semanticsLabel: 'History',
-                        height: 26,
-                      ),
-                      onTap: () async {
-                        ExpressHistory? _reExpress = await Navigator.push(
-                          context,
-                          // Packages Animations
-                          PageRouteBuilder(
-                            transitionDuration:
-                                const Duration(milliseconds: 500),
-                            reverseTransitionDuration:
-                                const Duration(milliseconds: 500),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              return SharedAxisTransition(
-                                fillColor: Colors.transparent,
-                                animation: animation,
-                                secondaryAnimation: secondaryAnimation,
-                                transitionType:
-                                    SharedAxisTransitionType.vertical,
-                                child: child,
-                              );
-                            },
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    RestorePage(
-                              isThemeDark: _isThemeDark,
-                              expressHistory: _expressHistory,
-                            ),
-                          ),
-                        );
-
-                        if (_reExpress != null) {
-                          setState(() {
-                            _express = _reExpress.express;
-                            _result = _reExpress.result;
-                          });
-                        }
-                      },
-                    ),
-                    SwitchIcon(
-                      isActive: _isThemeDark,
-                      onChanged: () => setState(() {
-                        _isThemeDark = !_isThemeDark;
-                      }),
-                      textOff: 'Light',
-                      textOn: 'Drak',
-                      width: 64,
-                      bgColorOn: const Color.fromARGB(255, 93, 93, 93),
-                      bgColorOff: const Color.fromARGB(255, 207, 207, 207),
-                    ),
-                  ],
-                ),
-              ),
-              // Express Widget
-              Expanded(
-                child: ExpressBox(
-                  express: _express,
-                  isThemeDark: _isThemeDark,
-                ),
-              ),
-              const SizedBox(height: 7),
-              BorderSpace(isThemeDark: _isThemeDark),
-              const SizedBox(height: 10),
-              // Result Widget
-              ResultCaulator(
-                result: _result,
-                isError: _resultError,
-                isThemeDark: _isThemeDark,
-              ),
-              const SizedBox(height: 15),
-              // Keyboard Widget
-              BoardNum(
-                onTab: setExpress,
-                isThemeDark: _isThemeDark,
-              ),
-            ],
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        bool _isThemeDark = true;
+        if (state is ThemeLoadded) {
+          _isThemeDark = state.isThemeDark;
+        }
+        return Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              // Ios
+              statusBarBrightness:
+                  _isThemeDark ? Brightness.dark : Brightness.light,
+              // Android
+              statusBarIconBrightness:
+                  _isThemeDark ? Brightness.dark : Brightness.light,
+            ),
+            toolbarHeight: 0,
+            backgroundColor: AppColors(isThemeDark: _isThemeDark).bg,
+            shadowColor: Colors.transparent,
           ),
-        ),
-      ),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: AppColors(isThemeDark: _isThemeDark).bgLinear,
+            ),
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Header Widget
+                  Header(),
+                  // Express Widget
+                  Expanded(
+                    child: ExpressBox(
+                      express: _express,
+                      isThemeDark: _isThemeDark,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  BorderSpace(isThemeDark: _isThemeDark),
+                  const SizedBox(height: 10),
+                  // Result Widget
+                  ResultCaulator(
+                    result: _result,
+                    isError: _resultError,
+                    isThemeDark: _isThemeDark,
+                  ),
+                  const SizedBox(height: 15),
+                  // Keyboard Widget
+                  BoardNum(
+                    onTab: setExpress,
+                    isThemeDark: _isThemeDark,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
