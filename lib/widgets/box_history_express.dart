@@ -47,23 +47,42 @@ class BoxHistoryExpress extends StatelessWidget {
             size: 25,
           ),
         ),
-        title: Text(
-          AppNumPattern().formatDecimal(result),
-          style: TextStyle(
-            color: AppColors(isThemeDark: isThemeDark).text,
-            fontSize: 23,
-            fontWeight: FontWeight.w600,
-            height: 1,
-          ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+        subtitle: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Opacity(
+                opacity: 0.6,
+                child: Text(
+                  '=',
+                  style: TextStyle(
+                    color: AppColors(isThemeDark: isThemeDark).text,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                AppNumPattern().formatDecimal(result),
+                style: TextStyle(
+                  color: AppColors(isThemeDark: isThemeDark).text,
+                  fontSize: 23,
+                  fontWeight: FontWeight.w600,
+                  height: 1.1,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
-        subtitle: Container(
-          margin: const EdgeInsets.only(top: 5),
+        title: Container(
+          margin: const EdgeInsets.only(bottom: 5),
           child: Opacity(
             opacity: 0.6,
             child: Text(
-              AppFunc().getExpressString(express),
+              AppFunc.getExpressString(express),
               style: TextStyle(
                 color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 16,

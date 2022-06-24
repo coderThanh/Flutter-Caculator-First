@@ -12,6 +12,8 @@ class ThemeInitial extends ThemeState {
   const ThemeInitial();
   @override
   List<Object?> get props => [];
+
+  static bool get isThemeDark => true;
 }
 
 class ThemeLoadded extends ThemeState {

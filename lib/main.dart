@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/caculator_bloc.dart';
-import 'bloc/theme_bloc.dart';
+import 'bloc/calculator_bloc/calculator_bloc.dart';
+import 'bloc/theme_bloc/theme_bloc.dart';
 import 'route_navigator/route_generator.dart';
 import 'route_navigator/routes_name.dart';
 
@@ -18,9 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ThemeBloc()..add(ThemeLoadDark())),
-        BlocProvider(
-            create: (context) => CaculatorBloc()..add(CaculatorEventLoadded())),
+        BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => CalculatorBloc()),
       ],
       child: const MaterialApp(
         title: 'Flutter Demo',

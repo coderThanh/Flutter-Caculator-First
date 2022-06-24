@@ -26,7 +26,7 @@ class ExpressBox extends StatelessWidget {
         maxHeight: 200,
       ),
       child: AutoSizeText(
-        AppFunc().getExpressString(express),
+        AppFunc.getExpressString(express),
         textAlign: TextAlign.right,
         minFontSize: 25,
         style: TextStyle(
@@ -40,7 +40,7 @@ class ExpressBox extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: Text.rich(
             TextSpan(
-              text: AppFunc().getExpressString(express),
+              text: AppFunc.getExpressString(express),
               style: TextStyle(
                 color: AppColors(isThemeDark: isThemeDark).text,
                 fontSize: 25,

@@ -12,4 +12,7 @@ class AppConst {
   static const String keyAction = 'action';
   static const String keyOperator = 'operator';
   static const String keyNum = 'number';
+
+  // Icon
+  static const String iconRestore = 'assets/images/ic_back.svg';
 }

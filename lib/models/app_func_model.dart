@@ -3,10 +3,10 @@ import 'app_pattern_model.dart';
 import 'keypress_model.dart';
 
 class AppFunc {
-  String getExpressString(List<KeyPress> inputExpress) {
+  static String getExpressString(List<KeyPress> inputExpress) {
     String result = '';
-    // ignore: avoid_function_literals_in_foreach_calls
-    inputExpress.forEach((element) {
+
+    for (KeyPress element in inputExpress) {
       String value = element.value;
       String type = element.type;
 
@@ -22,7 +22,7 @@ class AppFunc {
           break;
         default: //Keynum
           if (value.isEmpty) {
-            return;
+            continue;
           }
 
           var toNumber = double.tryParse(value) ?? 0;
@@ -33,7 +33,8 @@ class AppFunc {
             result += AppNumPattern().formatDecimal(toNumber);
           }
       }
-    });
+    }
+
     return result.isNotEmpty ? result : '0';
   }
 }

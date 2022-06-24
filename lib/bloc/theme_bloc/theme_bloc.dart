@@ -6,10 +6,7 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(const ThemeInitial()) {
-    on<ThemeLoadDark>((event, emit) {
-      emit(const ThemeLoadded(isThemeDark: true));
-    });
+  ThemeBloc() : super(ThemeLoadded(isThemeDark: ThemeInitial.isThemeDark)) {
     on<ThemeChangeDark>((event, emit) {
       if (state is ThemeLoadded) {
         emit(ThemeLoadded(isThemeDark: event.isThemeDark));
