@@ -17,3 +17,10 @@
   animations: ^2.0.2
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
+
+- Some Images
+
+<img src="assets/git_images/home-light.png" alt="home light" width="200"/>
+<img src="assets/git_images/home-dark.png" alt="home dark" width="200"/>
+<img src="assets/git_images/restore-light.png" alt="restore light" width="200"/>
+<img src="assets/git_images/restore-dark.png" alt="restore dark" width="200"/>

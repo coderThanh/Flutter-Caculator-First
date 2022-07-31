@@ -21,16 +21,13 @@ class RestorePage extends StatefulWidget {
 }
 
 class _RestorePageState extends State<RestorePage> {
-  // bool _isThemeDark = ThemeInitial.isThemeDark;
-  // List<ExpressHistory> _expressHistory = [];
-
   final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       //write or call your logic
       //code will run when widget rendering complete
       double positionStart = _controller.position.maxScrollExtent;
